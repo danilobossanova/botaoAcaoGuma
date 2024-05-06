@@ -67,7 +67,7 @@ public class BotaoAcaoGuma  implements AcaoRotinaJava {
                     1, // Cópias
                     BigDecimal.ZERO, //ID do Usuário
                     "SUP", //nome do usuário
-                    BigDecimal.ONE, //Código da empresa
+                    BigDecimal.valueOf(11), //Código da empresa
                     id.toString() // id do documento
             );
 
