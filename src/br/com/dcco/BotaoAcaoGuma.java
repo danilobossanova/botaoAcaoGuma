@@ -5,8 +5,12 @@ import br.com.sankhya.extensions.actionbutton.ContextoAcao;
 import br.com.sankhya.jape.EntityFacade;
 import br.com.sankhya.jape.vo.DynamicVO;
 import br.com.sankhya.modelcore.auth.AuthenticationInfo;
+import br.com.sankhya.modelcore.comercial.util.print.PrintManager;
+import br.com.sankhya.modelcore.comercial.util.print.model.PrintInfo;
 import br.com.sankhya.modelcore.util.AgendamentoRelatorioHelper;
 import br.com.sankhya.modelcore.util.EntityFacadeFactory;
+import br.com.sankhya.sps.enumeration.DocTaste;
+import br.com.sankhya.sps.enumeration.DocType;
 import br.com.sankhya.ws.ServiceContext;
 
 import java.math.BigDecimal;
@@ -54,17 +58,26 @@ public class BotaoAcaoGuma  implements AcaoRotinaJava {
             auth.makeCurrent();
 
             // Gerenciador de Impressora
+            PrintManager printManager = PrintManager.getInstance();
+            PrintInfo printInfo = new PrintInfo(
+                    pdfBytes, // dados da etiquetas
+                    DocTaste.AUTO, // tipo de formato
+                    DocType.OUTRO, // tipo de envio
+                    "Nome da Impressora", // Nome da impressora
+                    1, // Cópias
+                    BigDecimal.ZERO, //ID do Usuário
+                    "SUP", //nome do usuário
+                    BigDecimal.ONE, //Código da empresa
+                    id.toString() // id do documento
+            );
 
+            printManager.print(printInfo);
 
         }
         catch(Exception e)
         {
-
+            e.printStackTrace();
         }
-
-
-
-        //Gera a configuração da impressora
 
         contexto.setMensagemRetorno("Chegou aqui");
 
